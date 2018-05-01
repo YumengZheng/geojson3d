@@ -199,7 +199,12 @@ function addFeature(sceneObj, feature, projection, functions=randomFunctions) {
     }
 
     try {
-        amount = functions.height(feature.properties);
+        if(feature.height){
+            amount = feature.height
+            console.log('a',feature.height)
+        } else {
+            amount = functions.height(feature.properties);
+        }
     } catch(err) {
         console.log(err);
     }
@@ -225,28 +230,33 @@ function addFeature(sceneObj, feature, projection, functions=randomFunctions) {
 
     return group;
 }
+//aaa
 
-function draw(json_url, container, sceneObj, projectionStr, functions, preprojected=false) {
+function draw(json_url, user_url, container, sceneObj, projectionStr, functions, preprojected=false) {
 
     var width = container.clientWidth;
     var height = container.clientHeight;
-
-    d3.json(json_url, function(data) {
-        clearGroups(data, sceneObj);
-
-        if (data.type === 'FeatureCollection') {
-            drawFeatureCollection(data, width, height, functions, sceneObj, projectionStr, preprojected);
-        } else if (data.type === 'Topology') {
-            drawTopology(data, width, height, functions, sceneObj, projectionStr, preprojected);
-        } else {
-            console.err('Only TopoJSON and GeoJSON FeatureCollections are supported');
-        }
-
-        sceneObj.renderer.render(sceneObj.scene, sceneObj.camera);
-    });
+    d3.csv(user_url, function(err, rows){
+        const userData = rows
+        // console.log(rows)
+        d3.json(json_url, function(data) {
+            clearGroups(data, sceneObj);
+    
+            if (data.type === 'FeatureCollection') {
+                drawFeatureCollection(userData, data, width, height, functions, sceneObj, projectionStr, preprojected);
+            } else if (data.type === 'Topology') {
+                drawTopology(userData, data, width, height, functions, sceneObj, projectionStr, preprojected);
+            } else {
+                console.err('Only TopoJSON and GeoJSON FeatureCollections are supported');
+            }
+    
+            sceneObj.renderer.render(sceneObj.scene, sceneObj.camera);
+        });
+    })
 }
 
-function drawFeatureCollection(data, width, height, functions, sceneObj, projectionStr, preprojected) {
+function drawFeatureCollection(userData, data, width, height, functions, sceneObj, projectionStr, preprojected) {
+    console.log('1', userData)
     var projection = null;
     if (isFunction(projectionStr)) {
         projection = projectionStr;
@@ -256,12 +266,18 @@ function drawFeatureCollection(data, width, height, functions, sceneObj, project
         }
     }
     data.features.forEach(function(feature) {
+        userData.forEach((n)=>{
+            if(n.NAME === feature.properties.NAME){
+                feature.height = n.height
+            }
+        })
         var group = addFeature(sceneObj, feature, projection, functions);
         feature._group = group;
     });
 }
 
-function drawTopology(data, width, height, functions, sceneObj, projectionStr, preprojected) {
+function drawTopology(userData, data, width, height, functions, sceneObj, projectionStr, preprojected) {
+    console.log('2', userData)
     var geojson = topojson.feature(data, data.objects[Object.keys(data.objects)[0]]);
 
     // if not preprojected, compute a projection
@@ -275,7 +291,6 @@ function drawTopology(data, width, height, functions, sceneObj, projectionStr, p
     }
 
     Object.keys(data.objects).forEach(function(key) {
-        console.log(data.objects[key]);
         data.objects[key].geometries.forEach(function(object) {
             var feature = topojson.feature(data, object);
             var group = addFeature(sceneObj, feature, projection, functions);
@@ -379,6 +394,7 @@ var isFunction = function(functionToCheck) {
 }
 
 var plot = function(container,{json_location = undefined,
+                                user_url = undefined,
                                 width = undefined,
                                 height = undefined,
                                 projection=undefined,
@@ -394,7 +410,7 @@ var plot = function(container,{json_location = undefined,
         height
     );
 
-    draw(json_location, container, sceneObj, projection, functions, preprojected);
+    draw(json_location, user_url, container, sceneObj, projection, functions, preprojected);
     animate(sceneObj);
 }
 

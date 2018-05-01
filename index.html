@@ -11,43 +11,48 @@
   <body>
     <!-- <div id="central">
       <script type="text/javascript">
-        geojson3d.plot(document.getElementById("central"), '/testbench/central_map.json', 640, 480, "Mercator");
+        geojson3d.plot(document.getElementById("central"),{json_location: '/testbench/central_map.json',width: 640, height: 480, type: "Mercator"});
       </script>
     </div>
 
     <div id="waterloo_topo">
       <script type = "text/javascript">
-        geojson3d.plot(document.getElementById("waterloo_topo"), '/testbench/waterloo_map.json');
+        geojson3d.plot(document.getElementById("waterloo_topo"), {json_location:'/testbench/waterloo_map.json'});
       </script>
     </div>
 
     <div id="us-counties">
       <script type = "text/javascript">
-        geojson3d.plot(document.getElementById("us-counties"), '/testbench/us_counties_20m.json', 640, 480, "Albers-USA");
+        geojson3d.plot(document.getElementById("us-counties"), {json_location:'/testbench/us_counties_20m.json', width: 640, height: 480, type: "Albers-USA"});
       </script>
-    </div>
+    </div>-->
 
     <div id="us-states">
       US States, width, height options
       <script type = "text/javascript">
-        geojson3d.plot(document.getElementById("us-states"), '/testbench/us_states.json', 640, 480, "Albers");
+        geojson3d.plot(document.getElementById("us-states"),{json_location: '/testbench/us_states.json', user_url:  '/testbench/test.csv', width: 640, height: 480, type: "Albers"});
       </script>
-    </div>
+    </div> 
 
-    <div id="us-states-2">
+    <!-- <div id="us-states-2">
       US States, width, height options
       <script type = "text/javascript">
-        geojson3d.plot(document.getElementById("us-states-2"), '/testbench/us_states.json', 640, 480, "Mercator");
-      </script>
-    </div>
-
-    <div id="us-states-3">
-      US States, width, height options
-      <script type = "text/javascript">
-        geojson3d.plot(document.getElementById("us-states-3"), '/testbench/us_states.json', 640, 480, geojson3d.projections["Mercator"]);
+        geojson3d.plot(document.getElementById("us-states-2"),  {json_location: '/testbench/us_states.json', 
+                                                                user_url:  '/testbench/test.csv',
+                                                                width: 640, height: 480, type: "Mercator"});
       </script>
     </div> -->
 
+    <!-- <div id="us-states-3">
+      US States, width, height options
+      <script type = "text/javascript">
+        geojson3d.plot(document.getElementById("us-states-3"), {json_location: '/testbench/us_states.json', 
+                                                                width: 640, 
+                                                                height: 480, 
+                                                                functions: geojson3d.projections["Mercator"]});
+      </script>
+    </div>  -->
+<!-- 
     <div id="preprojected">
       US Counties preprojected
       <script type="text/javascript">
@@ -58,6 +63,6 @@
                                                                   functions: geojson3d.randomFunctions, 
                                                                   preprojected: true});
       </script>
-    </div>
+    </div> -->
   </body>
 </html>
