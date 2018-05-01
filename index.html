@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
   </head>
   <body>
-    <div id="central">
+    <!-- <div id="central">
       <script type="text/javascript">
         geojson3d.plot(document.getElementById("central"), '/testbench/central_map.json', 640, 480, "Mercator");
       </script>
@@ -46,12 +46,17 @@
       <script type = "text/javascript">
         geojson3d.plot(document.getElementById("us-states-3"), '/testbench/us_states.json', 640, 480, geojson3d.projections["Mercator"]);
       </script>
-    </div>
+    </div> -->
 
     <div id="preprojected">
       US Counties preprojected
       <script type="text/javascript">
-        geojson3d.plot(document.getElementById("preprojected"), '/testbench/us-10m.v1.json', 960, 600, null, geojson3d.randomFunctions, true);
+        geojson3d.plot(document.getElementById("preprojected"), {json_location:'/testbench/us-10m.v1.json',
+                                                                  width: 960, 
+                                                                  height: 600, 
+                                                                  projection: null, 
+                                                                  functions: geojson3d.randomFunctions, 
+                                                                  preprojected: true});
       </script>
     </div>
   </body>

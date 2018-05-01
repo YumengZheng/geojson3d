@@ -378,7 +378,15 @@ var isFunction = function(functionToCheck) {
     return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 }
 
-var plot = function(container, json_location, width, height, projection=undefined, functions=randomFunctions, preprojected=false) {
+var plot = function(container,{json_location = undefined,
+                                width = undefined,
+                                height = undefined,
+                                projection=undefined,
+                                functions=undefined,
+                                preprojected=false,
+                                url= undefined,
+                                type = "Topology",
+                                stateorCounty = undefined }) {
     var sceneObj = initScene(
         container,
         json_location,
