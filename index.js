@@ -193,7 +193,11 @@ function addFeature(sceneObj, feature, projection, functions=randomFunctions) {
     var amount;
 
     try {
-        color = functions.color(feature.properties);
+        if(feature.color){
+            color = feature.color
+        } else {
+            color = functions.color(feature.properties);
+        }
     } catch(err) {
         console.log(err);
     }
@@ -243,6 +247,7 @@ function draw(json_url, user_url, container, sceneObj, projectionStr, functions,
             clearGroups(data, sceneObj);
     
             if (data.type === 'FeatureCollection') {
+                console.log('aaaa')
                 drawFeatureCollection(userData, data, width, height, functions, sceneObj, projectionStr, preprojected);
             } else if (data.type === 'Topology') {
                 drawTopology(userData, data, width, height, functions, sceneObj, projectionStr, preprojected);
@@ -268,7 +273,12 @@ function drawFeatureCollection(userData, data, width, height, functions, sceneOb
     data.features.forEach(function(feature) {
         userData.forEach((n)=>{
             if(n.NAME === feature.properties.NAME){
-                feature.height = n.height
+                if(n.height!==undefined){
+                    feature.height = n.height
+                }
+                if(n.color!==undefined){
+                    feature.color = n.color
+                } 
             }
         })
         var group = addFeature(sceneObj, feature, projection, functions);
@@ -293,6 +303,15 @@ function drawTopology(userData, data, width, height, functions, sceneObj, projec
     Object.keys(data.objects).forEach(function(key) {
         data.objects[key].geometries.forEach(function(object) {
             var feature = topojson.feature(data, object);
+            userData.forEach((n)=>{
+                if(feature.id === n.id){
+                    feature.height = n.height
+                    console.log(feature)
+                if(n.color!==undefined){
+                    feature.color = n.color
+                } 
+            }
+        })
             var group = addFeature(sceneObj, feature, projection, functions);
             object._group = group;
         });

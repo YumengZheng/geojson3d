@@ -11,21 +11,21 @@
   <body>
     <!-- <div id="central">
       <script type="text/javascript">
-        geojson3d.plot(document.getElementById("central"),{json_location: '/testbench/central_map.json',width: 640, height: 480, type: "Mercator"});
+        geojson3d.plot(document.getElementById("central"),{json_location: '/testbench/central_map.json',user_url:  '/testbench/test.csv', width: 640, height: 480, type: "Mercator"});
       </script>
     </div>
 
     <div id="waterloo_topo">
       <script type = "text/javascript">
-        geojson3d.plot(document.getElementById("waterloo_topo"), {json_location:'/testbench/waterloo_map.json'});
+        geojson3d.plot(document.getElementById("waterloo_topo"), {json_location:'/testbench/waterloo_map.json', user_url:  '/testbench/test.csv',});
       </script>
     </div>
 
     <div id="us-counties">
       <script type = "text/javascript">
-        geojson3d.plot(document.getElementById("us-counties"), {json_location:'/testbench/us_counties_20m.json', width: 640, height: 480, type: "Albers-USA"});
+        geojson3d.plot(document.getElementById("us-counties"), {json_location:'/testbench/us_counties_20m.json',user_url:  '/testbench/test.csv', width: 640, height: 480, type: "Albers-USA"});
       </script>
-    </div>-->
+    </div>
 
     <div id="us-states">
       US States, width, height options
@@ -34,16 +34,16 @@
       </script>
     </div> 
 
-    <!-- <div id="us-states-2">
+    <div id="us-states-2">
       US States, width, height options
       <script type = "text/javascript">
         geojson3d.plot(document.getElementById("us-states-2"),  {json_location: '/testbench/us_states.json', 
                                                                 user_url:  '/testbench/test.csv',
                                                                 width: 640, height: 480, type: "Mercator"});
       </script>
-    </div> -->
+    </div>
 
-    <!-- <div id="us-states-3">
+   <div id="us-states-3">
       US States, width, height options
       <script type = "text/javascript">
         geojson3d.plot(document.getElementById("us-states-3"), {json_location: '/testbench/us_states.json', 
@@ -52,17 +52,35 @@
                                                                 functions: geojson3d.projections["Mercator"]});
       </script>
     </div>  -->
-<!-- 
+    <!-- <div id="us-counties">
+      <script type = "text/javascript">
+        geojson3d.plot(document.getElementById("us-counties"), {json_location:'/testbench/us_counties_20m.json',user_url:  '/testbench/test1.csv', width: 640, height: 480, type: "Albers-USA"});
+      </script>
+    </div> -->
+<!--     
     <div id="preprojected">
       US Counties preprojected
       <script type="text/javascript">
-        geojson3d.plot(document.getElementById("preprojected"), {json_location:'/testbench/us-10m.v1.json',
+        geojson3d.plot(document.getElementById("preprojected"), {json_location:'/testbench/us_states.json',
+                                                                  user_url:  '/testbench/test.csv',
                                                                   width: 960, 
                                                                   height: 600, 
                                                                   projection: null, 
                                                                   functions: geojson3d.randomFunctions, 
                                                                   preprojected: true});
       </script>
-    </div> -->
+    </div>  -->
+    <div id="preprojected">
+      US Counties preprojected
+      <script type="text/javascript">
+        geojson3d.plot(document.getElementById("preprojected"), {json_location:'/testbench/us-10m.v1.json',
+                                                                  user_url:  '/testbench/test1.csv',
+                                                                  width: 960, 
+                                                                  height: 600, 
+                                                                  projection: null, 
+                                                                  functions: geojson3d.randomFunctions, 
+                                                                  preprojected: true});
+      </script>
+    </div> 
   </body>
 </html>
